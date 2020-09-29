@@ -20,9 +20,7 @@ public class MigrationStrategy implements FlywayMigrationStrategy {
     @Override
     public void migrate(Flyway flyway) {
         log.info("Flyway start...");
-        log.info("Flyway repair...");
         flyway.repair();
-        log.info("Flyway migrate...");
         flyway.migrate();
         log.info("Flyway end...");
     }
