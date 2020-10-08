@@ -57,7 +57,7 @@ public class HttpResult<T> {
         this.data = data;
     }
 
-    public static <T> HttpResult response() {
+    public static HttpResult response() {
         return new HttpResult(SUCCESS_CODE, SUCCESS_MESSAGE, null);
     }
 
@@ -65,7 +65,7 @@ public class HttpResult<T> {
         return new HttpResult(SUCCESS_CODE, SUCCESS_MESSAGE, data);
     }
 
-    public static <T> HttpResult response(int code, String message) {
+    public static HttpResult response(int code, String message) {
         return new HttpResult(code, message, null);
     }
 

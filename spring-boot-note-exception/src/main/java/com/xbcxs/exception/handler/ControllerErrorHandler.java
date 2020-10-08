@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2020/9/28
  */
 @Controller
-public class PageErrorHandler implements ErrorController {
+public class ControllerErrorHandler implements ErrorController {
 
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {

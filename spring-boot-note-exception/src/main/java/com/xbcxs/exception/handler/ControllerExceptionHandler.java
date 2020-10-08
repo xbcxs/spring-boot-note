@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @ResponseBody
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class ControllerExceptionHandler {
 
-    private Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private Logger log = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 
     @ExceptionHandler({CheckedException.class,})
     public HttpResult handException(CheckedException e) {
