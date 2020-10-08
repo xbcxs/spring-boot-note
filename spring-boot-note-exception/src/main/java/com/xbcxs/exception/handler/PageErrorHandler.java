@@ -1,6 +1,7 @@
-package com.xbcxs.exception.custom;
+package com.xbcxs.exception.handler;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,13 +12,9 @@ import javax.servlet.http.HttpServletRequest;
  * @author Xiao
  * @date 2020/9/28
  */
+@Controller
 public class PageErrorHandler implements ErrorController {
 
-    /**
-     *
-     * @param request
-     * @return
-     */
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {
         //获取statusCode:401,404,500

@@ -1,7 +1,6 @@
 package com.xbcxs.exception.web;
 
-import com.xbcxs.exception.custom.HttpResult;
-import com.xbcxs.exception.exception.UncheckedException;
+import com.xbcxs.exception.common.HttpResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,9 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    @RequestMapping("testRequest")
+    @RequestMapping("response")
     public HttpResult testRequest() {
-        System.out.println(5 / 0);
-        return HttpResult.success();
+        return HttpResult.response(5 / 0);
     }
 }

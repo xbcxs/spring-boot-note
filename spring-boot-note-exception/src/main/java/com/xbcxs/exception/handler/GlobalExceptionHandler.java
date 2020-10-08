@@ -1,5 +1,6 @@
-package com.xbcxs.exception.custom;
+package com.xbcxs.exception.handler;
 
+import com.xbcxs.exception.common.HttpResult;
 import com.xbcxs.exception.exception.CheckedException;
 import com.xbcxs.exception.exception.UncheckedException;
 import org.slf4j.Logger;
@@ -25,20 +26,20 @@ public class GlobalExceptionHandler {
     public HttpResult handException(CheckedException e) {
         log.error(e.getMessage());
         log.debug("ExceptionControllerAdvice: CheckedException异常信息:", e);
-        return HttpResult.error(e.getCode(), e.getMessage());
+        return HttpResult.response(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler({UncheckedException.class})
     public HttpResult handException(UncheckedException e) {
         log.error(e.getMessage());
         log.debug("ExceptionControllerAdvice: UncheckedException异常信息:", e);
-        return HttpResult.error(e.getCode(), e.getMessage());
+        return HttpResult.response(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler({Exception.class,})
     public HttpResult handException(Exception e) {
         log.error(e.getMessage());
         log.debug("ExceptionControllerAdvice: Exception异常信息:", e);
-        return HttpResult.error(0, e.getMessage());
+        return HttpResult.response(HttpResult.ERROR_CODE, e.getMessage(), null);
     }
 }
