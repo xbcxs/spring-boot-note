@@ -9,18 +9,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * 生命周期中回调事件
+ * 生命周期中事件扩展
  *
  * @author Xiao
- * @date 2020/9/25
  */
 @Component
 public class MigrationCallback implements Callback {
 
-    private final Logger log = LoggerFactory.getLogger(MigrationCallback.class);
+    private static final Logger logger = LoggerFactory.getLogger(MigrationCallback.class);
 
     /**
-     * Whether this callback supports this event or not. This is primarily meant as a way to optimize event handling
+     * 开启事件支持
      *
      * @param event
      * @param context
@@ -50,15 +49,21 @@ public class MigrationCallback implements Callback {
         return false;
     }
 
+    /**
+     * 事件处理
+     * 打印脚本执行信息
+     * @param event
+     * @param context
+     */
     @Override
     public void handle(Event event, Context context) {
         if (event.equals(Event.BEFORE_MIGRATE)) {
-            log.info(Event.AFTER_MIGRATE.toString());
+            logger.info(Event.AFTER_MIGRATE.toString());
         } else if (event.equals(Event.AFTER_MIGRATE)) {
-            log.info(Event.AFTER_MIGRATE.toString());
+            logger.info(Event.AFTER_MIGRATE.toString());
         } else if (event.equals(Event.AFTER_EACH_MIGRATE)) {
             MigrationInfo migrationInfo = context.getMigrationInfo();
-            log.info("Flyway执行脚本:{}完成！", migrationInfo != null ? migrationInfo.getScript() : null);
+            logger.info("Flyway script:{} finished！", migrationInfo != null ? migrationInfo.getScript() : null);
         }
     }
 }

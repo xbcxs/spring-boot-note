@@ -7,21 +7,23 @@ import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
 import org.springframework.stereotype.Component;
 
 /**
- * 自定义migrate步骤
+ *
+ * 基于Springboot自动装载扩展接口实现，自定义migrate步骤
  *
  * @author Xiao
- * @date 2020/9/27
  */
 @Component
 public class MigrationStrategy implements FlywayMigrationStrategy {
 
-    private final Logger log = LoggerFactory.getLogger(MigrationStrategy.class);
+    private static final Logger logger = LoggerFactory.getLogger(MigrationStrategy.class);
 
     @Override
     public void migrate(Flyway flyway) {
-        log.info("Flyway start...");
+        logger.info("Flyway start...");
+        // 用于先修复上次执行失败的语句。
         flyway.repair();
+        // 没有失败语句记录，才能执行合并。
         flyway.migrate();
-        log.info("Flyway end...");
+        logger.info("Flyway end...");
     }
 }

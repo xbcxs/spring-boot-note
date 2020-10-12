@@ -62,7 +62,7 @@ Supported databases are Oracle, SQL Server (including Amazon RDS and Azure SQL D
 @Component
 public class MigrationCallback implements Callback {
 
-    private final Logger log = LoggerFactory.getLogger(MigrationCallback.class);
+    private static final Logger logger = LoggerFactory.getLogger(MigrationCallback.class);
 
     /**
      * Whether this callback supports this event or not. This is primarily meant as a way to optimize event handling
@@ -98,12 +98,12 @@ public class MigrationCallback implements Callback {
     @Override
     public void handle(Event event, Context context) {
         if (event.equals(Event.BEFORE_MIGRATE)) {
-            log.info(Event.AFTER_MIGRATE.toString());
+            logger.info(Event.AFTER_MIGRATE.toString());
         } else if (event.equals(Event.AFTER_MIGRATE)) {
-            log.info(Event.AFTER_MIGRATE.toString());
+            logger.info(Event.AFTER_MIGRATE.toString());
         } else if (event.equals(Event.AFTER_EACH_MIGRATE)) {
             MigrationInfo migrationInfo = context.getMigrationInfo();
-            log.info("Flyway执行脚本:{}完成！", migrationInfo != null ? migrationInfo.getScript() : null);
+            logger.info("Flyway执行脚本:{}完成！", migrationInfo != null ? migrationInfo.getScript() : null);
         }
     }
 }
@@ -118,14 +118,14 @@ public class MigrationCallback implements Callback {
 @Component
 public class MigrationStrategy implements FlywayMigrationStrategy {
 
-    private final Logger log = LoggerFactory.getLogger(MigrationStrategy.class);
+    private static final Logger logger = LoggerFactory.getLogger(MigrationStrategy.class);
 
     @Override
     public void migrate(Flyway flyway) {
-        log.info("Flyway start...");
+        logger.info("Flyway start...");
         flyway.repair();
         flyway.migrate();
-        log.info("Flyway end...");
+        logger.info("Flyway end...");
     }
 }
 ```
@@ -165,13 +165,13 @@ spring.flyway.enabled=true
 # 禁止flyway的clean命令会删除指定schema下的所有table
 spring.flyway.clean-disabled=true
 # SQL 脚本的目录,多个路径使用逗号分隔 默认值 classpath:db/migration
-spring.flyway.locations=classpath:flyway
+spring.flyway.locations=classpath:db/sql
 # Metadata版本控制信息表，默认flyway_schema_history
 spring.flyway.table=flyway_schema_history
 # 自动初始化flyway_schema_history
 spring.flyway.baseline-on-migrate=true
-# 默认1。可设置为0，初始化flyway_schema_history会用掉第一个版本号，后续自己的脚本可从1开始。
-spring.flyway.baseline-version=0
+# 默认1，基线初始版本号
+spring.flyway.baseline-version=1
 # 编码
 spring.flyway.encoding=UTF-8
 # 是否允许无序迁移，例如在V1和V2后面执行V1.1
