@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
  * 对/error进行细分处理
  *
  * @author Xiao
- * @date 2020/9/28
  */
 @Controller
 public class ControllerErrorHandler implements ErrorController {

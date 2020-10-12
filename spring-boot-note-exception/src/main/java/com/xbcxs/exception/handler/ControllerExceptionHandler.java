@@ -14,32 +14,31 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * PS：无法拦截Interceptor异常
  *
  * @author Xiao
- * @date 2020/9/28
  */
 @ResponseBody
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
-    private Logger log = LoggerFactory.getLogger(ControllerExceptionHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 
     @ExceptionHandler({CheckedException.class,})
     public HttpResult handException(CheckedException e) {
-        log.error(e.getMessage());
-        log.debug("ExceptionControllerAdvice: CheckedException异常信息:", e);
+        logger.error(e.getMessage());
+        logger.debug("ExceptionControllerAdvice: CheckedException异常信息:", e);
         return HttpResult.response(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler({UncheckedException.class})
     public HttpResult handException(UncheckedException e) {
-        log.error(e.getMessage());
-        log.debug("ExceptionControllerAdvice: UncheckedException异常信息:", e);
+        logger.error(e.getMessage());
+        logger.debug("ExceptionControllerAdvice: UncheckedException异常信息:", e);
         return HttpResult.response(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler({Exception.class,})
     public HttpResult handException(Exception e) {
-        log.error(e.getMessage());
-        log.debug("ExceptionControllerAdvice: Exception异常信息:", e);
-        return HttpResult.response(HttpResult.ERROR_CODE, e.getMessage(), null);
+        logger.error(e.getMessage());
+        logger.debug("ExceptionControllerAdvice: Exception异常信息:", e);
+        return HttpResult.response(HttpResult.ERROR_CODE, e.getMessage());
     }
 }

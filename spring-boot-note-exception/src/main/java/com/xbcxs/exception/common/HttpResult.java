@@ -4,7 +4,6 @@ package com.xbcxs.exception.common;
  * http响应结果
  *
  * @author Xiao
- * @date 2020/9/28
  */
 public class HttpResult<T> {
 
@@ -25,7 +24,7 @@ public class HttpResult<T> {
     /**
      * 默认响应提示
      */
-    private final static String SUCCESS_MESSAGE = "完成！";
+    private final static String SUCCESS_MESSAGE = "SUCCESS";
 
     private HttpResult(int code, String message, T data) {
         this.code = code;
@@ -57,11 +56,11 @@ public class HttpResult<T> {
         this.data = data;
     }
 
-    public static HttpResult response() {
+    public static HttpResult suceess() {
         return new HttpResult(SUCCESS_CODE, SUCCESS_MESSAGE, null);
     }
 
-    public static <T> HttpResult response(T data) {
+    public static <T> HttpResult suceess(T data) {
         return new HttpResult(SUCCESS_CODE, SUCCESS_MESSAGE, data);
     }
 

@@ -77,28 +77,28 @@ public class UncheckedException extends RuntimeException{
 ```
 @ResponseBody
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class ControllerExceptionHandler {
 
-    private Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static fianl Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler({CheckedException.class,})
     public HttpResult handException(CheckedException e) {
-        log.error(e.getMessage());
-        log.debug("ExceptionControllerAdvice: CheckedException异常信息:", e);
+        logger.error(e.getMessage());
+        logger.debug("ExceptionControllerAdvice: CheckedException异常信息:", e);
         return HttpResult.response(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler({UncheckedException.class})
     public HttpResult handException(UncheckedException e) {
-        log.error(e.getMessage());
-        log.debug("ExceptionControllerAdvice: UncheckedException异常信息:", e);
+        logger.error(e.getMessage());
+        logger.debug("ExceptionControllerAdvice: UncheckedException异常信息:", e);
         return HttpResult.response(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler({Exception.class,})
     public HttpResult handException(Exception e) {
-        log.error(e.getMessage());
-        log.debug("ExceptionControllerAdvice: Exception异常信息:", e);
+        logger.error(e.getMessage());
+        logger.debug("ExceptionControllerAdvice: Exception异常信息:", e);
         return HttpResult.response(HttpResult.ERROR_CODE, e.getMessage(), null);
     }
 }
@@ -109,7 +109,7 @@ Spring Boot提供了一个默认的映射：/error。当处理中抛出异常之
 
 ```
 @Controller
-public class PageErrorHandler implements ErrorController {
+public class ControllerErrorHandler implements ErrorController {
  
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {

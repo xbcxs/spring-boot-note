@@ -5,14 +5,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * 控制层异常测试
  * @author Xiao
- * @date 2020/9/28
  */
 @RestController
 public class TestController {
 
     @RequestMapping("response")
     public HttpResult testRequest() {
-        return HttpResult.response(5 / 0);
+        return HttpResult.response(HttpResult.ERROR_CODE, "ERROR", 5 / 0);
     }
 }

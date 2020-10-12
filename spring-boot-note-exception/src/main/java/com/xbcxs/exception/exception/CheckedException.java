@@ -4,7 +4,6 @@ package com.xbcxs.exception.exception;
  * 受检测异常
  *
  * @author Xiao
- * @date 2020/9/28
  */
 public class CheckedException extends Exception{
 
