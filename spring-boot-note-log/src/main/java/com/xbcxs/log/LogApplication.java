@@ -8,14 +8,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class LogApplication {
 
-    private static Logger log = LoggerFactory.getLogger(LogApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(LogApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(LogApplication.class, args);
-        log.debug("I am debug!!!");
-        log.info("I am info!!!");
-        log.warn("I am warn!!!");
-        log.error("I am error!!!");
+        logger.debug("I am debug!!!");
+        logger.info("I am info!!!");
+        logger.warn("I am warn!!!");
+        logger.error("I am error!!!");
     }
 
 }
