@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xbcxs.mybatis.user.UserMapper">
+    <!-- sql片段 -->
+    <sql id=""/>
+
+    <!--根据用户userId查询用户信息-->
+    <select id="getUser" resultType="com.xbcxs.mybatis.user.User">
+        SELECT u.* FROM mybatis_user u WHERE 1 = 1 AND u.id = #{id}
+    </select>
+
+    <!-- 查询用户分页 -->
+    <select id="listUserForPage" resultType="com.xbcxs.mybatis.user.User">
+        SELECT u.* FROM mybatis_user u
+    </select>
+
+    <!-- 查询用户集合 -->
+    <select id="listUser" resultType="com.xbcxs.mybatis.user.User">
+        SELECT u.* FROM mybatis_user u
+    </select>
+
+    <!-- 插入用户 -->
+    <insert id="save" useGeneratedKeys="true" keyColumn="id" keyProperty="id"
+            parameterType="com.xbcxs.mybatis.user.User">
+        insert into mybatis_user(name, login_name, phone, create_time, update_time) values(#{name},#{loginName},#{phone},#{createTime},#{updateTime})
+    </insert>
+
+    <!-- 更新用户 -->
+    <update id="update" parameterType="com.xbcxs.mybatis.user.User">
+        update mybatis_user set name=#{name} where id=#{id}
+    </update>
+
+    <!-- 删除用户 -->
+    <delete id="delete">
+        delete from mybatis_user where id = #{id}
+    </delete>
+
+</mapper>
