@@ -46,8 +46,8 @@ public class UserController {
         return userService.updateUser(userDo);
     }
 
-    @RequestMapping("get")
-    public Object get(@RequestParam String id){
+    @RequestMapping("query")
+    public Object query(@RequestParam String id){
         return userService.getUser(id);
     }
 
