@@ -1,5 +1,7 @@
 package com.xbcxs.exception.exception;
 
+import com.xbcxs.exception.result.ResultCode;
+
 /**
  * 不受检测异常
  *
@@ -10,22 +12,22 @@ public class UncheckedException extends RuntimeException{
     /**
      * 默认错误码
      */
-    private int code = 0;
+    private ResultCode resultCode = ResultCode.ERROR;
 
-    public int getCode() {
-        return code;
+    public ResultCode getResultCode() {
+        return resultCode;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setResultCode(ResultCode resultCode) {
+        this.resultCode = resultCode;
     }
 
     public UncheckedException(String message) {
         super(message);
     }
 
-    public UncheckedException(int code, String message) {
+    public UncheckedException(ResultCode resultCode, String message) {
         super(message);
-        this.setCode(code);
+        this.setResultCode(resultCode);
     }
 }

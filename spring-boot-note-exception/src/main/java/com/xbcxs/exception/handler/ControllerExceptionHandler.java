@@ -1,44 +1,71 @@
 package com.xbcxs.exception.handler;
 
-import com.xbcxs.exception.common.HttpResult;
+import com.alibaba.fastjson.JSON;
 import com.xbcxs.exception.exception.CheckedException;
 import com.xbcxs.exception.exception.UncheckedException;
+import com.xbcxs.exception.result.Result;
+import com.xbcxs.exception.result.ResultCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.core.MethodParameter;
+import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
+
+import java.lang.annotation.Annotation;
 
 /**
- * 拦截Controller自定义异常并进行处理
- * PS：无法拦截Interceptor异常
+ * <p>RestControllerAdvice: 拦截Controller自定义异常并进行处理
+ *
+ * <p>ResponseBodyAdvice<Object>: 拦截Controller方法默认返回参数，统一处理返回值、响应体
  *
  * @author Xiao
  */
-@ResponseBody
-@ControllerAdvice
-public class ControllerExceptionHandler {
+@RestControllerAdvice
+public class ControllerExceptionHandler implements ResponseBodyAdvice<Object> {
 
     private static final Logger logger = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 
+    private static final Class<? extends Annotation> ANNOTATION_TYPE = ResponseBody.class;
+
+    @Override
+    public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
+        return AnnotatedElementUtils.hasAnnotation(methodParameter.getContainingClass(), ANNOTATION_TYPE) || methodParameter.hasMethodAnnotation(ANNOTATION_TYPE);
+    }
+
+    @Override
+    public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+        if (o instanceof Result) {
+            return o;
+        } else if (o instanceof String) {
+            return JSON.toJSONString(Result.success(o));
+        } else {
+            return Result.success(o);
+        }
+    }
+
     @ExceptionHandler({CheckedException.class,})
-    public HttpResult handException(CheckedException e) {
-        logger.error(e.getMessage());
-        logger.debug("ExceptionControllerAdvice: CheckedException异常信息:", e);
-        return HttpResult.response(e.getCode(), e.getMessage());
+    public Result handException(CheckedException e) {
+        logger.error("ExceptionControllerAdvice: CheckedException异常信息:", e);
+        return Result.error(e.getResultCode(), e.getMessage());
     }
 
     @ExceptionHandler({UncheckedException.class})
-    public HttpResult handException(UncheckedException e) {
-        logger.error(e.getMessage());
-        logger.debug("ExceptionControllerAdvice: UncheckedException异常信息:", e);
-        return HttpResult.response(e.getCode(), e.getMessage());
+    public Result handException(UncheckedException e) {
+        logger.error("ExceptionControllerAdvice: UncheckedException异常信息:", e);
+        return Result.error(e.getResultCode(), e.getMessage());
     }
 
     @ExceptionHandler({Exception.class,})
-    public HttpResult handException(Exception e) {
-        logger.error(e.getMessage());
-        logger.debug("ExceptionControllerAdvice: Exception异常信息:", e);
-        return HttpResult.response(HttpResult.ERROR_CODE, e.getMessage());
+    public Result handException(Exception e) {
+        logger.error("ExceptionControllerAdvice: Exception异常信息:", e);
+        return Result.error(ResultCode.ERROR, e.getMessage());
     }
+
 }
