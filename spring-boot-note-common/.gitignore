@@ -31,10 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### mvn ###
-.mvn
-mvnw
-mvnw.cmd
-
-TODO.md
