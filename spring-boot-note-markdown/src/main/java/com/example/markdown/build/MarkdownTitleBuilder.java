@@ -52,7 +52,7 @@ public class MarkdownTitleBuilder {
                     String relativeFilePath = sonFile.getName() + File.separator + "readme.md";
                     relativeFilePath = relativeFilePath.replace(File.separator, "/");
                     /* relativeFilePath = URLEncoder.encode(relativeFilePath, "utf-8").replaceAll("\\+", "%20"); */
-                    blogLists.add(formatTitle(++i, sonFile.getName(), relativeFilePath));
+                    blogLists.add(formatTitle(++i, this.getReadmeFirstLine(sonFile.getPath() + File.separator + "readme.md"), relativeFilePath));
                 }
             }
         }
@@ -101,6 +101,30 @@ public class MarkdownTitleBuilder {
                 }
             }
         }
+    }
+
+    /**
+     * 读取文件第一行字符
+     * @param path
+     */
+    private String getReadmeFirstLine(String path) {
+        String title = "标题未定义";
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(new File(path)));
+            title = br.readLine().split("#")[1].trim();
+        } catch (IOException e) {
+            logger.error("获取各子模块readme.md文件第一行标题字符，请检查标题是否符合：在第一行[# 标题示例]");
+        } finally {
+            if(br != null){
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return title;
     }
 
 }
