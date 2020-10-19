@@ -1,4 +1,4 @@
-package com.xbcxs.exception.handler;
+package com.xbcxs.exception.response;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author Xiao
  */
 @Controller
-public class ControllerErrorHandler implements ErrorController {
+public class ResponseErrorHandler implements ErrorController {
 
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {

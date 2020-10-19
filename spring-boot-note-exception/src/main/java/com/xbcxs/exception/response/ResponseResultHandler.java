@@ -1,10 +1,8 @@
-package com.xbcxs.exception.handler;
+package com.xbcxs.exception.response;
 
 import com.alibaba.fastjson.JSON;
 import com.xbcxs.exception.exception.CheckedException;
 import com.xbcxs.exception.exception.UncheckedException;
-import com.xbcxs.exception.result.Result;
-import com.xbcxs.exception.result.ResultCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
@@ -14,7 +12,6 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
@@ -28,11 +25,15 @@ import java.lang.annotation.Annotation;
  * @author Xiao
  */
 @RestControllerAdvice
-public class ControllerExceptionHandler implements ResponseBodyAdvice<Object> {
+public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
 
-    private static final Logger logger = LoggerFactory.getLogger(ControllerExceptionHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ResponseResultHandler.class);
 
-    private static final Class<? extends Annotation> ANNOTATION_TYPE = ResponseBody.class;
+    /**
+     * 这里使用自定义注解
+     * 也可以使用ResponseBody.class进行标记
+     */
+    private static final Class<? extends Annotation> ANNOTATION_TYPE = ResponseResult.class;
 
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {

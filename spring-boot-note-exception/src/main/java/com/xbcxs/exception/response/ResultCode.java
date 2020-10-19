@@ -1,7 +1,7 @@
-package com.xbcxs.exception.result;
+package com.xbcxs.exception.response;
 
 /**
- * HTTP请求结果状态码
+ * HTTP请求结果状态码，参考阿里JAVA开发手册
  *
  * @author Xiao
  */

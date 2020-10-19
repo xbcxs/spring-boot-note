@@ -1,8 +1,9 @@
 package com.xbcxs.exception.web;
 
 import com.xbcxs.exception.exception.UncheckedException;
-import com.xbcxs.exception.result.Result;
-import com.xbcxs.exception.result.ResultCode;
+import com.xbcxs.exception.response.ResponseResult;
+import com.xbcxs.exception.response.Result;
+import com.xbcxs.exception.response.ResultCode;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +30,7 @@ public class TestController {
         throw new UncheckedException("自定义运行时异常!");
     }
 
+    @ResponseResult
     @RequestMapping("testString")
     public String testString() {
         return "happy";

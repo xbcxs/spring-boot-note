@@ -1,4 +1,4 @@
-package com.xbcxs.exception.result;
+package com.xbcxs.exception.response;
 
 /**
  * http响应结果

@@ -1,6 +1,6 @@
 package com.xbcxs.exception.exception;
 
-import com.xbcxs.exception.result.ResultCode;
+import com.xbcxs.exception.response.ResultCode;
 
 /**
  * 不受检测异常
