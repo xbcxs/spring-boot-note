@@ -17,6 +17,7 @@ import java.util.List;
  * @author Xiao
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class UserServiceImpl implements UserService {
 
     @Resource
@@ -76,11 +77,13 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean updateUser(User user) {
         return userMapper.update(user);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean deleteUser(int id) {
         return userMapper.delete(id);
