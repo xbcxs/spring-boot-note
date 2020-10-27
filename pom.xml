@@ -18,8 +18,18 @@
         <module>spring-boot-note-exception</module>
         <module>spring-boot-note-flyway</module>
         <module>spring-boot-note-hibernate</module>
+        <module>spring-boot-note-httpclient</module>
         <module>spring-boot-note-log</module>
         <module>spring-boot-note-markdown</module>
         <module>spring-boot-note-mybatis</module>
+        <module>spring-boot-note-quartz</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.73</version>
+        </dependency>
+    </dependencies>
 </project>
