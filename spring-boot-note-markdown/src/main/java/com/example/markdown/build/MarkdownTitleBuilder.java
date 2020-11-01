@@ -49,7 +49,7 @@ public class MarkdownTitleBuilder {
             int i = 0;
             for (File sonFile : files) {
                 if (sonFile.isDirectory() && sonFile.getName().startsWith("spring-boot-note-")) {
-                    String relativeFilePath = sonFile.getName() + File.separator + "readme.md";
+                    String relativeFilePath = sonFile.getName();
                     relativeFilePath = relativeFilePath.replace(File.separator, "/");
                     /* relativeFilePath = URLEncoder.encode(relativeFilePath, "utf-8").replaceAll("\\+", "%20"); */
                     blogLists.add(formatTitle(++i, this.getReadmeFirstLine(sonFile.getPath() + File.separator + "readme.md"), relativeFilePath));
@@ -105,6 +105,7 @@ public class MarkdownTitleBuilder {
 
     /**
      * 读取文件第一行字符
+     *
      * @param path
      */
     private String getReadmeFirstLine(String path) {
@@ -113,10 +114,10 @@ public class MarkdownTitleBuilder {
         try {
             br = new BufferedReader(new FileReader(new File(path)));
             title = br.readLine().split("#")[1].trim();
-        } catch (IOException e) {
-            logger.error("获取各子模块readme.md文件第一行标题字符，请检查标题是否符合：在第一行[# 标题示例]");
+        } catch (Exception e) {
+            logger.error("解析{}标题失败，请检查标题是否符合 首行[# 标题XX] 规范！", path);
         } finally {
-            if(br != null){
+            if (br != null) {
                 try {
                     br.close();
                 } catch (IOException e) {

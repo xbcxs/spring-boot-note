@@ -16,6 +16,7 @@
     <modules>
         <module>spring-boot-note-common</module>
         <module>spring-boot-note-exception</module>
+        <module>spring-boot-note-fileupload</module>
         <module>spring-boot-note-flyway</module>
         <module>spring-boot-note-hibernate</module>
         <module>spring-boot-note-httpclient</module>
@@ -23,13 +24,17 @@
         <module>spring-boot-note-markdown</module>
         <module>spring-boot-note-mybatis</module>
         <module>spring-boot-note-quartz</module>
+        <module>spring-boot-note-springfox</module>
     </modules>
 
     <dependencies>
+
+        <!-- spring-boot-note-httpclient dependency -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.73</version>
         </dependency>
+
     </dependencies>
 </project>
