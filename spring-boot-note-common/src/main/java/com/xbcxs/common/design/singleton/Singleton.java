@@ -4,7 +4,6 @@ package com.xbcxs.common.design.singleton;
  * Singleton
  *
  * @author x
- * @date 2020/9/14
  */
 public class Singleton {
 

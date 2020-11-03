@@ -19,6 +19,7 @@ public class ClassPathResourceUtils {
 
     /**
      * 测试
+     *
      * @param args
      * @throws IOException
      */
@@ -35,14 +36,14 @@ public class ClassPathResourceUtils {
      * 读取classes的相对路径
      * 可用于windows和Linux
      * 不可用于jar工程
-     *
+     * <p>
      * eg: C:\workspace\spring-boot-note\spring-boot-note-common\target\classes
      *
      * @return
      */
     public static String getClasspath() {
         try {
-            return new org.springframework.core.io.ClassPathResource("").getFile().getPath();
+            return new ClassPathResource("").getFile().getPath();
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -67,7 +68,7 @@ public class ClassPathResourceUtils {
      * 根据classes下相对路径得到文件流
      * 可用于windows和Linux
      * 可用jar,bin,webroot工程环境
-     *
+     * <p>
      * eg: C:\workspace\spring-boot-note\spring-boot-note-common\target\classes\{relativeFilePath}
      *
      * @return
@@ -84,7 +85,7 @@ public class ClassPathResourceUtils {
      * 根据classes下相对路径得到文件流
      * 可用于windows和Linux
      * [待验证]jar,bin,webroot工程环境
-     *
+     * <p>
      * eg: C:\workspace\spring-boot-note\spring-boot-note-common\target\classes\{relativeFilePath}
      *
      * @return
