@@ -2,7 +2,7 @@ package com.xbcxs.fileupload.http;
 
 import com.xbcxs.fileupload.common.CipherKey;
 import com.xbcxs.fileupload.common.UUIDGenerator;
-import com.xbcxs.fileupload.config.FileServerProperties;
+import com.xbcxs.fileupload.config.FileServerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class FileServiceImpl implements FileService {
     private Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
 
     @Autowired
-    FileServerProperties fsp;
+    FileServerConfig fileServerConfig;
 
     @Override
     public List<String> uploads(MultipartFile[] files, HttpServletRequest request) throws IOException {
@@ -40,13 +40,13 @@ public class FileServiceImpl implements FileService {
             File dest;
             InputStream is;
             String newFileName = UUIDGenerator.getUUID();
-            if (fsp.isEncryption()) {
-                newFileName = fsp.getNameEncryptionSign() + newFileName;
+            if (fileServerConfig.isEncryption()) {
+                newFileName = fileServerConfig.getNameEncryptionSign() + newFileName;
                 is = new CipherInputStream(file.getInputStream(), CipherKey.getEncryptCipher());
             } else {
                 is = file.getInputStream();
             }
-            dest = new File(fsp.getStorage() + File.separator + newFileName);
+            dest = new File(fileServerConfig.getStorage() + File.separator + newFileName);
             FileCopyUtils.copy(new BufferedInputStream(is), new BufferedOutputStream(Files.newOutputStream(dest.toPath())));
             newFileNames.add(newFileName);
         }
@@ -55,9 +55,9 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void load(String id, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        File file = new File(fsp.getStorage() + File.separator + id);
+        File file = new File(fileServerConfig.getStorage() + File.separator + id);
         InputStream is;
-        if (fsp.getNameEncryptionSign().equals(file.getName().substring(0, 1))) {
+        if (fileServerConfig.getNameEncryptionSign().equals(file.getName().substring(0, 1))) {
             is = new BufferedInputStream(new CipherInputStream(new FileInputStream(file), CipherKey.getDecryptCipher()));
         } else {
             is = new FileInputStream(file);

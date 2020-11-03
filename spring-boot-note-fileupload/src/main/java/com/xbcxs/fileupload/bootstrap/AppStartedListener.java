@@ -1,6 +1,6 @@
 package com.xbcxs.fileupload.bootstrap;
 
-import com.xbcxs.fileupload.config.FileServerProperties;
+import com.xbcxs.fileupload.config.FileServerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class AppStartedListener implements ApplicationRunner {
     private static final Logger logger = LoggerFactory.getLogger(AppStartedListener.class);
 
     @Autowired
-    FileServerProperties fsp;
+    FileServerConfig fileServerConfig;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -39,9 +39,9 @@ public class AppStartedListener implements ApplicationRunner {
      * @throws IOException
      */
     private boolean initFileServerDir(ApplicationArguments args) {
-        logger.info("初始化文件服务存储目录{}，请确保目录具备操作权限！", fsp.getStorage());
-        File storage = new File(fsp.getStorage());
-        File storageTemp = new File(fsp.getStorageTemp());
+        logger.info("初始化文件服务存储目录{}，请确保目录具备操作权限！", fileServerConfig.getStorage());
+        File storage = new File(fileServerConfig.getStorage());
+        File storageTemp = new File(fileServerConfig.getStorageTemp());
         boolean flag = !storage.exists() ? storage.mkdirs() : true;
         flag &= !storageTemp.exists() ? storageTemp.mkdirs() : true;
         return flag;
