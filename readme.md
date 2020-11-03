@@ -1,6 +1,6 @@
 1. [通用工具类集合](https://github.com/xbcxs/spring-boot-note/blob/master/spring-boot-note-common)
 2. [API数据返回和异常处理](https://github.com/xbcxs/spring-boot-note/blob/master/spring-boot-note-exception)
-3. [文件上传下载[文档待补充]](https://github.com/xbcxs/spring-boot-note/blob/master/spring-boot-note-fileupload)
+3. [文件上传下载](https://github.com/xbcxs/spring-boot-note/blob/master/spring-boot-note-fileupload)
 4. [基于Flyway的SQL脚本自动升级](https://github.com/xbcxs/spring-boot-note/blob/master/spring-boot-note-flyway)
 5. [集成hibernate](https://github.com/xbcxs/spring-boot-note/blob/master/spring-boot-note-hibernate)
 6. [Httpclient笔记](https://github.com/xbcxs/spring-boot-note/blob/master/spring-boot-note-httpclient)
