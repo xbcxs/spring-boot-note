@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FileUpload</title>
+    <script src="/jquery.js"></script>
+    <script src="/ajaxfileupload.js"></script>
+    <script type="text/javascript">
+        // wait for the DOM to be loaded
+        $(document).ready(function () {
+
+            $('#submitButton').on("click", function () {
+                $.ajaxFileUpload({
+                    url: 'upload', //你处理上传文件的服务端
+                    fileElementId: ['file'],//file的id,支持多个
+                    dataType: 'json',//返回的类型
+                    success: function (resopnseData, status) {//调用成功时怎么处理
+                        $('#fileShow').attr('href', 'load?id=' + resopnseData.data[0]);
+                        $('#fileShow').text(resopnseData.data[0]);
+                    },
+                    error: function (data, status, e) {
+                        alert("操作失败");
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<h2>单文件上传示例</h2>
+<div>
+    <form id="singleUploadForm" method="POST" enctype="multipart/form-data">
+        <input id="file" type="file" name="file"><br/>
+        <br/>
+        <input id="submitButton" type="button" value="Press"> to upload the file!
+    </form>
+</div>
+<a id="fileShow" href="#">..</a>
+<br/>
+<br/>
+<br/>
+<br/>
+<h2>多文件上传示例</h2>
+<div>
+    <form method="POST" enctype="multipart/form-data" action="upload">
+        <p>
+            文件1：<input type="file" name="file"/>
+        </p>
+        <p>
+            文件2：<input type="file" name="file"/>
+        </p>
+        <p>
+            <input type="submit" value="上传"/>
+        </p>
+    </form>
+</div>
+</body>
+</html>
