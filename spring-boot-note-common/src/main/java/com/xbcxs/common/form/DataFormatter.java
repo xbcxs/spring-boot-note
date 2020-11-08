@@ -25,9 +25,9 @@ public class DataFormatter {
             List childrenList = new ArrayList<>();
             for (Map current : originalList) {
                 if (parent.get("id").equals(current.get("parentId"))) {
-                    Map newMap = new HashMap();
+                    Map newMap = new HashMap(1);
                     // 将originalList中代理MAP转换成标准MAP防止删除失败。
-                    new HashMap().putAll(current);
+                    newMap.putAll(current);
                     childrenList.add(newMap);
                 }
             }
