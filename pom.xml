@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.4.RELEASE</version>
+        <version>2.3.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.xbcxs</groupId>
@@ -15,6 +15,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>spring-boot-note-autoconfiguration</module>
         <module>spring-boot-note-common</module>
         <module>spring-boot-note-exception</module>
         <module>spring-boot-note-fileupload</module>
@@ -35,6 +36,11 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.73</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
 
     </dependencies>
