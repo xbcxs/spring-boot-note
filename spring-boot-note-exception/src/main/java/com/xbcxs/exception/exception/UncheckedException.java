@@ -1,33 +1,26 @@
 package com.xbcxs.exception.exception;
 
-import com.xbcxs.exception.response.ResultCode;
-
 /**
  * 不受检测异常
  *
  * @author Xiao
  */
-public class UncheckedException extends RuntimeException{
-
-    /**
-     * 默认错误码
-     */
-    private ResultCode resultCode = ResultCode.ERROR;
-
-    public ResultCode getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(ResultCode resultCode) {
-        this.resultCode = resultCode;
+public class UncheckedException extends RuntimeException {
+    public UncheckedException() {
+        super();
     }
 
     public UncheckedException(String message) {
         super(message);
     }
 
-    public UncheckedException(ResultCode resultCode, String message) {
-        super(message);
-        this.setResultCode(resultCode);
+    public UncheckedException(String message, Throwable cause) {
+        super(message, cause);
     }
+
+    public UncheckedException(Throwable cause) {
+        super(cause);
+    }
+
+
 }

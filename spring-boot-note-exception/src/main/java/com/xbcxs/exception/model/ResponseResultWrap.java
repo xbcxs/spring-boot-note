@@ -1,4 +1,4 @@
-package com.xbcxs.exception.response;
+package com.xbcxs.exception.model;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -12,6 +12,6 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-public @interface ResponseResult {
+public @interface ResponseResultWrap {
 
 }
