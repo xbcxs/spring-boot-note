@@ -2,8 +2,6 @@ package com.xbcxs.exception.model;
 
 /**
  * http响应结果
- *
- * @author Xiao
  */
 public class ResponseResult<T> {
 
@@ -13,12 +11,6 @@ public class ResponseResult<T> {
 
     public ResponseResult() {
 
-    }
-
-    private ResponseResult(ResponseResultCode resultStatus, T data) {
-        this.code = resultStatus.getCode();
-        this.message = resultStatus.getMessage();
-        this.data = data;
     }
 
     private ResponseResult(String code, String message, T data) {
@@ -52,19 +44,19 @@ public class ResponseResult<T> {
     }
 
     public static ResponseResult success() {
-        return new ResponseResult(ResponseResultCode.SUCCESS, null);
+        return new ResponseResult("0", "success", null);
     }
 
     public static <T> ResponseResult<T> success(T data) {
-        return new ResponseResult(ResponseResultCode.SUCCESS, data);
+        return new ResponseResult("0", "success", data);
     }
 
-    public static ResponseResult failure() {
-        return new ResponseResult(ResponseResultCode.ERROR, null);
+    public static ResponseResult error() {
+        return new ResponseResult("1", "error", null);
     }
 
-    public static <T> ResponseResult<T> failure(String message) {
-        return new ResponseResult(ResponseResultCode.ERROR.getCode(), message, null);
+    public static <T> ResponseResult<T> error(String message) {
+        return new ResponseResult("1", message, null);
     }
 
 }

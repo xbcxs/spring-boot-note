@@ -1,7 +1,6 @@
 package com.xbcxs.exception.web;
 
 import com.xbcxs.exception.exception.NotFoundException;
-import com.xbcxs.exception.exception.UncheckedException;
 import com.xbcxs.exception.model.ResponseResult;
 import com.xbcxs.exception.model.ResponseResultWrap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,47 +16,6 @@ import java.util.Map;
  */
 @RestController
 public class TestController {
-
-    /**
-     * 测试未被ControllerExceptionHandler捕获的异常
-     *
-     * @return
-     */
-    @RequestMapping("testException")
-    public Object testException() {
-        return 5 / 0;
-    }
-
-    /**
-     * 测试被ControllerExceptionHandler捕获的异常
-     *
-     * @return
-     */
-    @RequestMapping("testUncheckException")
-    public Object testUncheckException() {
-        throw new UncheckedException("自定义运行时异常!");
-    }
-
-    /**
-     * 测试被ControllerExceptionHandler捕获的异常
-     *
-     * @return
-     */
-    @RequestMapping("testNotFoundException")
-    public Object testNotFoundException() {
-        throw new NotFoundException();
-    }
-
-    /**
-     * 测试被ControllerExceptionHandler根据@ResponseResultWrap自动包装处理结果
-     *
-     * @return
-     */
-    @ResponseResultWrap
-    @RequestMapping("testString")
-    public String testString() {
-        return "happy";
-    }
 
     /**
      * 测试ResponseResult返回数据
@@ -86,9 +44,9 @@ public class TestController {
      *
      * @return
      */
-    @RequestMapping("testFailure")
-    public ResponseResult testFailure() {
-        return ResponseResult.failure();
+    @RequestMapping("testError")
+    public ResponseResult testError() {
+        return ResponseResult.error();
     }
 
     /**
@@ -96,8 +54,52 @@ public class TestController {
      *
      * @return
      */
-    @RequestMapping("testFailure2")
-    public ResponseResult testFailure2() {
-        return ResponseResult.failure("自定义错误描述信息");
+    @RequestMapping("testError2")
+    public ResponseResult testError2() {
+        return ResponseResult.error("自定义错误描述信息");
     }
+
+    /**
+     * 测试被统一拦截器捕获，且进行异常转CODE处理，返回异常对应code
+     *
+     * @return
+     */
+    @RequestMapping("testNotFoundException")
+    public Object testNotFoundException() {
+        throw new NotFoundException();
+    }
+
+    /**
+     * 测试被统一拦截器捕获，但未进行细分类处理的异常，统一返回code:500
+     *
+     * @return
+     */
+    @RequestMapping("testException")
+    public Object testException() {
+        return 5 / 0;
+    }
+
+    /**
+     * 测试被统一拦截器捕获，但未进行细分类处理的异常，统一返回code:500
+     *
+     * @return
+     */
+    @RequestMapping("testRuntimeException")
+    public Object testRuntimeException() {
+        throw new RuntimeException("运行时异常!");
+    }
+
+
+    /**
+     * 测试被ControllerExceptionHandler根据@ResponseResultWrap自动包装处理结果
+     * ps: 需要打开ResponseResultHandler.java注释掉的两个 @Override方法
+     *
+     * @return
+     */
+    @ResponseResultWrap
+    @RequestMapping("testString")
+    public String testString() {
+        return "happy";
+    }
+
 }

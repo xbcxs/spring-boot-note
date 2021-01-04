@@ -26,9 +26,9 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     @Override
     public boolean addBatchUser(List<User> list) {
         int count = list.size();
-        for(int i = 0; i<count; i++){
+        for (int i = 0; i < count; i++) {
             entityManager.persist(list.get(i));
-            if(i % 200 == 0 ){
+            if (i % 200 == 0) {
                 entityManager.flush();
                 entityManager.clear();
             }
@@ -72,10 +72,14 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     public List<User> listUser() {
         String sql = "select * from sys_user";
         NativeQuery nativeQuery = (NativeQuery) entityManager.createNativeQuery(sql);
+        // 分页
+        // nativeQuery.setFirstResult(from);
+        // nativeQuery.setMaxResults(size);
         nativeQuery.addEntity(User.class);
         return nativeQuery.list();
     }
 
+    // TODO 待验证，无效？
     @Override
     public List<UserDeptDO> listUserDept() {
         String sql = "select * from sys_user u ,sys_department d, sys_user_department ud where u.id=ud.user_id and ud.department_id=d.id";
@@ -100,6 +104,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
     /**
      * 该版本Hibernate在构建跨表联合返回对象时需要使用addScalar()构建属性映射。
+     *
      * @param from
      * @param size
      * @return
